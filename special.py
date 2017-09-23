@@ -1,6 +1,6 @@
 # 1. Two Sum
 # use zip to sort two lists
-# Note: after sort, indexes are in wrong order; notice the order of return may be wrong
+# note: after sort, indexes are in wrong order; notice the order of return may be wrong
 class Solution(object):
     def twoSum(self, nums, target):
         """
