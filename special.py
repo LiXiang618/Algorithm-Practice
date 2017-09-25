@@ -21,3 +21,23 @@ class Solution(object):
                 j -= 1
             else:                
                 return([min(new_index[i],new_index[j]),max(new_index[i],new_index[j])])
+
+# 605. Can Place Flowers
+# note: use (or) and (or)
+class Solution(object):
+    def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]
+        :type n: int
+        :rtype: bool
+        """
+        if not n:
+            return True
+        for i in range(len(flowerbed)):
+            if not flowerbed[i]:
+                if (i==0 or flowerbed[i-1]==0) and (i==len(flowerbed)-1 or flowerbed[i+1]==0):
+                    flowerbed[i] = 1
+                    n-=1
+                    if not n:
+                        return True
+        return False

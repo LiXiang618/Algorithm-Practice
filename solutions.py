@@ -8849,3 +8849,22 @@ def canConstruct(self, ransomNote, magazine):
     c1 = Counter(ransomNote)
     c2 = Counter(magazine)
     return (not c1 - c2)
+
+#Can Place Flowers
+#solution:
+def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]
+        :type n: int
+        :rtype: bool
+        """
+        if not n:
+            return True
+        for i in range(len(flowerbed)):
+            if not flowerbed[i]:
+                if (i==0 or flowerbed[i-1]==0) and (i==len(flowerbed)-1 or flowerbed[i+1]==0):
+                    flowerbed[i] = 1
+                    n-=1
+                    if not n:
+                        return True
+        return False
