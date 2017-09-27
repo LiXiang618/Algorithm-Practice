@@ -8853,18 +8853,111 @@ def canConstruct(self, ransomNote, magazine):
 #Can Place Flowers
 #solution:
 def canPlaceFlowers(self, flowerbed, n):
+    """
+    :type flowerbed: List[int]
+    :type n: int
+    :rtype: bool
+    """
+    if not n:
+        return True
+    for i in range(len(flowerbed)):
+        if not flowerbed[i]:
+            if (i==0 or flowerbed[i-1]==0) and (i==len(flowerbed)-1 or flowerbed[i+1]==0):
+                flowerbed[i] = 1
+                n-=1
+                if not n:
+                    return True
+    return False
+
+#Shortest Unsorted Continuous Subarray
+#solution1:
+def findUnsortedSubarray(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    last = nums[0] 
+    i = 1
+    mi = ma = ""
+    while(i<len(nums)):
+        if nums[i] < last:
+            mi = min(nums[i:])
+            break
+        last = nums[i]
+        i += 1
+    if mi == "":
+        return 0
+    
+    last = nums[-1]
+    i = len(nums)-1
+    while(i>=0):
+        if nums[i] > last:
+            ma = max(nums[0:(i+1)])
+            break
+        last = nums[i]
+        i -= 1
+    if ma == "":
+        return 0
+    
+    i = 0
+    while(i<len(nums)):
+        if nums[i] <= mi:
+            i+=1
+        else:
+            break
+    j = len(nums)-1
+    while(j>=0):
+        if nums[j] >= ma:
+            j-=1
+        else:
+            break
+    return(j-i+1)
+#solution2: sort and check    
+
+#Subarray Sum Equals K
+#solution1: time limit exceeded
+def subarraySum(self, nums, k):
+    """
+    :type nums: List[int]
+    :type k: int
+    :rtype: int
+    """
+    count = 0
+    for i in range(len(nums)):
+        tmpSum = 0
+        for j in range(i,len(nums)):
+            tmpSum += nums[j]
+            if tmpSum == k:
+                count += 1
+    return count
+#solution2.1: map
+def subarraySum(self, nums, k):
         """
-        :type flowerbed: List[int]
-        :type n: int
-        :rtype: bool
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
         """
-        if not n:
-            return True
-        for i in range(len(flowerbed)):
-            if not flowerbed[i]:
-                if (i==0 or flowerbed[i-1]==0) and (i==len(flowerbed)-1 or flowerbed[i+1]==0):
-                    flowerbed[i] = 1
-                    n-=1
-                    if not n:
-                        return True
-        return False
+        d = {0:1}
+        res = total = 0
+        for i in range(len(nums)):
+            total += nums[i]
+            res += d.get(total - k, 0)
+            d[total] = d.get(total, 0) + 1
+        return res
+#solution2.2: xrange instead of range
+def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        d = {0:1}
+        res = total = 0
+        for i in xrange(len(nums)):
+            total += nums[i]
+            res += d.get(total - k, 0)
+            d[total] = d.get(total, 0) + 1
+        return res 
+    
+    
+ 

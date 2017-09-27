@@ -41,3 +41,20 @@ class Solution(object):
                     if not n:
                         return True
         return False
+    
+# 560. Subarray Sum Equals K 
+# note: we can get [i,j] by [0,i-1] and [0,j]  
+class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        d = {0:1}
+        res = total = 0
+        for i in range(len(nums)):
+            total += nums[i]
+            res += d.get(total - k, 0)
+            d[total] = d.get(total, 0) + 1
+        return res
