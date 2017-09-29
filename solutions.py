@@ -8959,5 +8959,29 @@ def subarraySum(self, nums, k):
             d[total] = d.get(total, 0) + 1
         return res 
     
-    
+#Construct String from Binary Tree
+#solution:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+def tree2str(self, t):
+        """
+        :type t: TreeNode
+        :rtype: str
+        """
+        if not t:
+            return ""
+        def fun(root):
+            s = str(root.val)
+            if root.left and root.right:
+                s += '(' + fun(root.left) + ')(' + fun(root.right) + ')' 
+            elif root.left:
+                s += '(' + fun(root.left) + ')'
+            elif root.right:
+                s += '()(' + fun(root.right) + ')'
+            return s
+        return fun(t)
  
